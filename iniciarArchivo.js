@@ -17,9 +17,11 @@ const prod3 = {
 const contenedor = new Contenedor('./productos.txt');
 
 module.exports = async function guardarProducto(){
-    await contenedor.save(prod1);
-    await contenedor.save(prod2);
-    await contenedor.save(prod3);
+    if(!contenedor.fileExists()){
+        await contenedor.save(prod1);
+        await contenedor.save(prod2);
+        await contenedor.save(prod3);
+    }
 
     return contenedor;
 }

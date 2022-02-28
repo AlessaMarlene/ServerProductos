@@ -5,6 +5,10 @@ module.exports = class Contenedor {
         this.fileName = fileName;
     }
 
+    fileExists(){
+        return fs.existsSync(this.fileName);
+    }
+
     async getAll(){
         try{
             return await JSON.parse(await fs.promises.readFile(this.fileName, "utf-8"));
@@ -17,7 +21,7 @@ module.exports = class Contenedor {
         try {
             let contenido;
 
-            if (fs.existsSync(this.fileName)) {
+            if (this.fileExists()) {
                 contenido = await this.getAll();
                 producto.id = contenido[contenido.length - 1].id + 1;
                 contenido.push(producto);
